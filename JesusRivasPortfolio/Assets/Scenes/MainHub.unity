@@ -158,7 +158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   speed: 5
-  jumpForce: 6
+  jumpForce: 10
+  animatorController: {fileID: 0}
 --- !u!60 &13954795
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -244,7 +245,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &13954797
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -507,6 +508,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   speed: 5
   jumpForce: 6
+  animatorController: {fileID: 0}
 --- !u!1 &1082476758
 GameObject:
   m_ObjectHideFlags: 0

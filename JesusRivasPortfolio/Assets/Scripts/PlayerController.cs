@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce; 
     private bool isJumping;
     private bool canJump;
+    private bool isIdle;
 
     // ANIMATION VARIABLES
     [SerializeField] private Animator animatorController;
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
         animatorController = GetComponent<Animator>();
         isJumping = false;
         canJump = true;
+        isIdle = true;
     }
 
     // Update is called once per frame
@@ -33,6 +35,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log("JUMP");
             isJumping = true;
             canJump = false;
+            animatorController.SetTrigger("isJumping");
+            animatorController.SetBool("isFalling", true);
         }
     }
 
@@ -46,21 +50,28 @@ public class PlayerController : MonoBehaviour
         else if(isJumping == false)
         {
             rb.velocity = new Vector2(speed * Input.GetAxisRaw("Horizontal"), rb.velocity.y);
+
+            if(rb.velocity.x == 0)
+            {
+                isIdle = true;
+            }
+            else if(rb.velocity.x > 0 || rb.velocity.x < 0)
+            {
+                isIdle = false;
+            }
             
             if(rb.velocity.x > 0)
             {
-                animatorController.SetBool("isMoving", true);
                 FlipRight();
             }
             else if(rb.velocity.x < 0)
             {
-                animatorController.SetBool("isMoving", true);
                 FlipLeft();
             }
-            else
-            {
-                animatorController.SetBool("isMoving", false);
-            }
+
+            animatorController.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
+            animatorController.SetBool("isIdle", isIdle);
+            
         }
     }
 
@@ -82,6 +93,7 @@ public class PlayerController : MonoBehaviour
         {
             canJump = true;
             isJumping = false;
+            animatorController.SetBool("isFalling", false);
         }
     }
 }
