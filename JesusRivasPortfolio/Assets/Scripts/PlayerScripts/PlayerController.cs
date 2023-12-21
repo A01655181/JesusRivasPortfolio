@@ -38,6 +38,11 @@ public class PlayerController : MonoBehaviour
             animatorController.SetTrigger("isJumping");
             animatorController.SetBool("isFalling", true);
         }
+
+        if(Input.GetKeyDown(KeyCode.E) && DoorHandler.instance.GetCanOpen())
+        {
+            DoorHandler.instance.ChangeRoom();
+        }
     }
 
     void FixedUpdate() {
